@@ -1,11 +1,10 @@
-from cv2 import cv2
+import cv2
 import numpy as np
 vid = cv2.VideoCapture(0)
 
 while(True): 
 
     ret, frame = vid.read()
-    #frame = cv2.imread(cv2.samples.findFile("rope4.jpg"))
 
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) 
     gaussian = cv2.GaussianBlur(frame, (5, 5), cv2.BORDER_DEFAULT)
@@ -16,6 +15,10 @@ while(True):
         for x in range(0, len(lines)):
             for x1, y1, x2, y2 in lines[x]:
                 cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+
+    width  = vid.get(3)
+    mid = width / 2
+    print(mid)
 
     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'): 
