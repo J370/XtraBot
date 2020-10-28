@@ -4,8 +4,8 @@ vid = cv2.VideoCapture(0)
 
 while(True): 
 
-    #ret, frame = vid.read()
-    frame = cv2.imread('rope2.jpg')
+    ret, frame = vid.read()
+    #frame = cv2.imread('rope2.jpg')
 
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) 
     gaussian = cv2.GaussianBlur(frame, (5, 5), cv2.BORDER_DEFAULT)
@@ -40,7 +40,17 @@ while(True):
         y1sum //= len(lines)
         y2sum //= len(lines)
 
+        avgx = (x1sum+x2sum)//2
+
+        if(avgx < midwidth -50):
+            print(-1)
+        elif(avgx > midwidth + 50):
+            print(1)
+        else:
+            print(0)
+
         cv2.line(frame, (x1sum, y1sum), (x2sum, y2sum), (0, 255, 0), 2)
+        cv2.circle(frame, ((x1sum+x2sum)//2, (y1sum+y2sum)//2), 2, (255,0,0), thickness=cv2.FILLED)
 
     cv2.circle(frame, (int(midwidth), int(midheight)), 2, (0,255,0), thickness=cv2.FILLED)
 
